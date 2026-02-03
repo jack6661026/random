@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>幸运号码 - 扫码自动领取</title>
+    <title>多设备共享抽奖池</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -15,7 +15,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #8A2BE2 0%, #4169E1 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -40,7 +40,7 @@
 
         .logo i {
             font-size: 5rem;
-            background: linear-gradient(135deg, #8A2BE2 0%, #4169E1 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -48,20 +48,20 @@
 
         h1 {
             color: #333;
-            font-size: 2.3rem;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
 
         .subtitle {
             color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+            font-size: 1rem;
+            margin-bottom: 30px;
         }
 
         .number-display {
-            margin: 40px 0;
-            padding: 50px 20px;
-            background: linear-gradient(135deg, #FF6B8B 0%, #FF8E53 100%);
+            margin: 30px 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
             border-radius: 20px;
             position: relative;
             overflow: hidden;
@@ -74,35 +74,30 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 10px;
+            height: 8px;
             background: rgba(255, 255, 255, 0.5);
         }
 
         #user-number {
-            font-size: 8rem;
+            font-size: 7rem;
             font-weight: 900;
             color: white;
-            text-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             line-height: 1;
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .loading-container {
-            margin: 40px 0;
-            padding: 50px 20px;
-        }
-
         .loading {
             display: inline-block;
-            width: 80px;
-            height: 80px;
-            border: 8px solid rgba(106, 17, 203, 0.2);
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: #6a11cb;
-            animation: spin 1.2s ease-in-out infinite;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
             margin: 20px auto;
         }
 
@@ -113,34 +108,33 @@
         }
 
         .loading-text {
-            font-size: 1.3rem;
-            color: #6a11cb;
+            font-size: 1.2rem;
+            color: white;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .status-message {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: white;
-            margin-top: 20px;
+            margin-top: 15px;
             font-weight: 600;
             min-height: 30px;
         }
 
         .info-panel {
             background: #f8f9fa;
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
-            margin-top: 30px;
+            margin-top: 25px;
             text-align: left;
-            border-left: 5px solid #6a11cb;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #eee;
         }
 
@@ -153,81 +147,76 @@
         .info-label {
             color: #666;
             font-weight: 600;
-            font-size: 1.1rem;
         }
 
         .info-value {
             color: #333;
             font-weight: 700;
-            font-size: 1.2rem;
         }
 
-        .instructions {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 25px;
-            text-align: left;
-            color: white;
+        .device-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 4px solid #4facfe;
         }
 
-        .instructions h3 {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.3rem;
-        }
-
-        .instructions ul {
-            list-style-type: none;
-            padding-left: 5px;
-        }
-
-        .instructions li {
-            margin-bottom: 12px;
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .instructions li i {
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: white;
-        }
-
-        .history-panel {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 25px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .history-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+        .device-info h3 {
             color: #333;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 1.1rem;
         }
 
-        .history-list {
+        .device-id {
+            font-family: monospace;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            word-break: break-all;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 8px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #eee;
+        }
+
+        .number-item {
+            width: 45px;
+            height: 45px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
 
-        .history-item {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 8px 15px;
-            border-radius: 10px;
-            font-weight: 600;
-            color: #6a11cb;
+        .number-item.available {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .number-item.assigned {
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
+            color: white;
+            transform: scale(0.9);
+            opacity: 0.8;
         }
 
         .controls {
@@ -256,9 +245,14 @@
             color: white;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .btn-secondary {
@@ -271,28 +265,11 @@
             transform: translateY(-3px);
         }
 
-        .admin-section {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 2px dashed #ddd;
-        }
-
         .admin-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #FF6B8B 0%, #FF8E53 100%);
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
             color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
+            width: 100%;
+            margin-top: 20px;
         }
 
         .admin-btn:hover {
@@ -300,26 +277,37 @@
             box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
         }
 
-        footer {
-            margin-top: 40px;
-            color: #666;
+        .sync-status {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
             font-size: 0.9rem;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            background: #4CAF50;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
+        .sync-status.syncing {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+
+        .sync-status.error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
         }
 
         @media (max-width: 480px) {
@@ -328,12 +316,12 @@
             }
 
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
 
             #user-number {
-                font-size: 6rem;
-                min-height: 110px;
+                font-size: 5rem;
+                min-height: 100px;
             }
 
             .controls {
@@ -346,22 +334,28 @@
 <body>
     <div class="container">
         <div class="logo">
-            <i class="fas fa-gift"></i>
+            <i class="fas fa-mobile-alt"></i>
         </div>
 
-        <h1>幸运号码自动抽取</h1>
-        <p class="subtitle">扫码即得 • 号码唯一 • 74个名额</p>
+        <h1>多设备共享抽奖池</h1>
+        <p class="subtitle">74个号码，多个设备共享同一个号码池，号码不重复</p>
 
         <!-- 加载状态 -->
-        <div id="loading-section" class="loading-container">
+        <div id="loading-section" style="text-align: center; padding: 30px;">
             <div class="loading"></div>
-            <div class="loading-text">正在为您分配幸运号码...</div>
+            <div class="loading-text">正在连接共享抽奖池...</div>
         </div>
 
         <!-- 号码显示 -->
         <div id="result-section" class="number-display" style="display: none;">
             <div id="user-number"></div>
             <div id="status-message" class="status-message"></div>
+        </div>
+
+        <!-- 同步状态 -->
+        <div id="sync-status" class="sync-status" style="display: none;">
+            <i class="fas fa-sync-alt"></i>
+            <span>已连接到共享抽奖池</span>
         </div>
 
         <div class="info-panel">
@@ -379,138 +373,141 @@
             </div>
             <div class="info-row">
                 <span class="info-label">您的号码：</span>
-                <span class="info-value" id="my-number">分配中...</span>
+                <span class="info-value" id="my-number">等待分配</span>
             </div>
         </div>
 
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> 活动说明</h3>
-            <ul>
-                <li><i class="fas fa-check"></i> 每人仅限一个号码，系统自动分配</li>
-                <li><i class="fas fa-check"></i> 号码范围：1-74，共74个幸运号码</li>
-                <li><i class="fas fa-check"></i> 号码分配后不可更改，请截图保存</li>
-                <li><i class="fas fa-check"></i> 清空浏览器数据将失去号码</li>
-            </ul>
-        </div>
-
-        <!-- 新增：历史记录显示 -->
-        <div class="history-panel">
-            <div class="history-title">
-                <i class="fas fa-history"></i> 最近分配的号码
-            </div>
-            <div id="history-list" class="history-list">
-                <!-- 历史记录将通过JavaScript动态生成 -->
-                <div class="history-item">等待分配...</div>
+        <!-- 设备信息 -->
+        <div class="device-info">
+            <h3><i class="fas fa-mobile"></i> 设备信息</h3>
+            <div>设备ID：</div>
+            <div class="device-id" id="device-id">生成中...</div>
+            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                <i class="fas fa-info-circle"></i> 此ID用于识别您的设备，确保公平分配
             </div>
         </div>
 
-        <!-- 恢复的控制按钮 -->
+        <!-- 号码池状态 -->
+        <div style="margin-top: 25px;">
+            <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-list-ol"></i> 号码池状态 (1-74)
+            </h3>
+            <div id="numbers-grid" class="numbers-grid">
+                <!-- 号码将通过JavaScript动态生成 -->
+            </div>
+        </div>
+
         <div class="controls">
-            <button id="refresh-btn" class="btn-primary">
+            <button id="get-number-btn" class="btn-primary">
+                <i class="fas fa-random"></i> 获取号码
+            </button>
+            <button id="refresh-btn" class="btn-secondary">
                 <i class="fas fa-sync-alt"></i> 刷新状态
             </button>
-            <button id="screenshot-btn" class="btn-secondary">
-                <i class="fas fa-camera"></i> 截图保存
-            </button>
         </div>
 
-        <div class="admin-section">
-            <button id="reset-btn" class="admin-btn">
-                <i class="fas fa-redo-alt"></i> 管理员重置系统
-            </button>
+        <button id="reset-btn" class="admin-btn">
+            <i class="fas fa-redo-alt"></i> 重置抽奖池（管理员）
+        </button>
+
+        <div class="sync-status" style="margin-top: 20px;">
+            <i class="fas fa-users"></i>
+            <span>多设备共享：所有设备使用同一个号码池</span>
         </div>
 
         <footer>
-            <p>© 2023 幸运抽号系统 | 系统自动分配 | 74个不重复号码</p>
+            <p>© 2023 多设备共享抽奖系统 | 74个号码 | 实时同步</p>
             <p style="margin-top: 10px; font-size: 0.8rem;">
-                <i class="fas fa-mobile-alt"></i> 请截图保存您的号码
+                <i class="fas fa-sync-alt"></i> 实时同步确保号码不重复
             </p>
         </footer>
     </div>
 
-    <!-- 通知提示 -->
-    <div class="notification" id="notification"></div>
-
     <script>
         // 配置
         const TOTAL_NUMBERS = 74;
-        const STORAGE_KEY = 'auto_lucky_numbers_74';
-        const USER_ID_KEY = 'user_auto_lucky_number';
-        const HISTORY_KEY = 'number_history';
-        const MAX_HISTORY = 10; // 最多显示10个历史记录
+        const STORAGE_KEY = 'shared_number_pool_74';
+        const DEVICE_ID_KEY = 'device_unique_id';
+        const SYNC_INTERVAL = 3000; // 3秒同步一次
 
         // 状态
-        let numbers = [];
-        let assignedNumbers = new Set();
+        let sharedNumbers = [];
+        let assignedNumbers = new Map(); // 使用Map存储: 号码 -> 设备ID
+        let deviceId = null;
         let userNumber = null;
-        let history = [];
+        let isSyncing = false;
 
         // DOM元素
         const loadingSection = document.getElementById('loading-section');
         const resultSection = document.getElementById('result-section');
         const userNumberEl = document.getElementById('user-number');
         const statusMessageEl = document.getElementById('status-message');
+        const syncStatusEl = document.getElementById('sync-status');
         const totalCountEl = document.getElementById('total-count');
         const assignedCountEl = document.getElementById('assigned-count');
         const remainingCountEl = document.getElementById('remaining-count');
         const myNumberEl = document.getElementById('my-number');
-        const historyListEl = document.getElementById('history-list');
+        const deviceIdEl = document.getElementById('device-id');
+        const numbersGridEl = document.getElementById('numbers-grid');
+        const getNumberBtn = document.getElementById('get-number-btn');
         const refreshBtn = document.getElementById('refresh-btn');
-        const screenshotBtn = document.getElementById('screenshot-btn');
         const resetBtn = document.getElementById('reset-btn');
-        const notificationEl = document.getElementById('notification');
 
-        // 页面加载完成后自动执行
+        // 页面加载完成后初始化
         window.addEventListener('DOMContentLoaded', function () {
-            // 先显示加载状态
-            loadingSection.style.display = 'block';
-            resultSection.style.display = 'none';
-
-            // 延迟1秒开始分配（给用户一个视觉反馈）
-            setTimeout(autoAssignNumber, 1000);
-
-            // 设置事件监听器
+            initializeDevice();
             setupEventListeners();
+
+            // 开始定期同步
+            setInterval(syncWithSharedPool, SYNC_INTERVAL);
         });
 
-        // 自动分配号码
-        function autoAssignNumber() {
-            loadData();
-
-            // 检查用户是否已有号码
-            const savedUserData = localStorage.getItem(USER_ID_KEY);
-
-            if (savedUserData) {
-                // 用户已有号码，直接显示
-                const data = JSON.parse(savedUserData);
-                userNumber = data.number;
-                showAssignedNumber();
-            } else {
-                // 新用户，分配号码
-                assignNewNumber();
+        // 初始化设备
+        function initializeDevice() {
+            // 生成或获取设备唯一ID
+            deviceId = localStorage.getItem(DEVICE_ID_KEY);
+            if (!deviceId) {
+                deviceId = generateDeviceId();
+                localStorage.setItem(DEVICE_ID_KEY, deviceId);
             }
 
-            // 更新历史记录显示
-            updateHistoryDisplay();
+            deviceIdEl.textContent = deviceId;
+
+            // 加载本地数据
+            loadLocalData();
+
+            // 显示同步状态
+            syncStatusEl.style.display = 'flex';
+
+            // 检查是否已有号码
+            checkIfAlreadyAssigned();
+
+            // 显示号码网格
+            renderNumbersGrid();
         }
 
-        // 加载数据
-        function loadData() {
+        // 生成设备唯一ID
+        function generateDeviceId() {
+            const timestamp = Date.now();
+            const random = Math.random().toString(36).substr(2, 9);
+            const userAgent = navigator.userAgent.substr(0, 30);
+            return `device_${timestamp}_${random}_${userAgent.length}`;
+        }
+
+        // 加载本地数据
+        function loadLocalData() {
             const saved = localStorage.getItem(STORAGE_KEY);
 
             if (saved) {
                 const data = JSON.parse(saved);
-                numbers = data.numbers || generateNumbers();
-                assignedNumbers = new Set(data.assignedNumbers || []);
+                sharedNumbers = data.numbers || generateNumbers();
+                assignedNumbers = new Map(data.assignedNumbers || []);
             } else {
-                numbers = generateNumbers();
-                assignedNumbers = new Set();
-                saveData();
+                // 首次运行，初始化共享池
+                sharedNumbers = generateNumbers();
+                assignedNumbers = new Map();
+                saveLocalData();
             }
-
-            // 加载历史记录
-            const savedHistory = localStorage.getItem(HISTORY_KEY);
-            history = savedHistory ? JSON.parse(savedHistory) : [];
 
             updateCounts();
         }
@@ -528,102 +525,92 @@
             return arr;
         }
 
-        // 保存数据
-        function saveData() {
+        // 保存本地数据
+        function saveLocalData() {
             const data = {
-                numbers: numbers,
-                assignedNumbers: Array.from(assignedNumbers),
+                numbers: sharedNumbers,
+                assignedNumbers: Array.from(assignedNumbers.entries()),
                 lastUpdated: new Date().toISOString()
             };
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         }
 
-        // 分配新号码
-        function assignNewNumber() {
-            // 检查是否还有可用号码
+        // 检查是否已分配号码
+        function checkIfAlreadyAssigned() {
+            // 检查这个设备是否已经有号码
+            for (const [number, assignedDeviceId] of assignedNumbers) {
+                if (assignedDeviceId === deviceId) {
+                    userNumber = number;
+                    showAssignedNumber();
+                    getNumberBtn.disabled = true;
+                    getNumberBtn.innerHTML = '<i class="fas fa-check-circle"></i> 已领取';
+                    return true;
+                }
+            }
+
+            // 没有分配号码
+            loadingSection.style.display = 'none';
+            resultSection.style.display = 'block';
+            userNumberEl.textContent = '?';
+            statusMessageEl.textContent = '点击"获取号码"从共享池中领取';
+            return false;
+        }
+
+        // 获取号码按钮点击事件
+        getNumberBtn.addEventListener('click', function () {
+            if (getNumberBtn.disabled) return;
+
+            // 检查是否已分配完
             if (assignedNumbers.size >= TOTAL_NUMBERS) {
-                showNoNumbersAvailable();
+                statusMessageEl.textContent = '所有号码已分配完毕！';
+                statusMessageEl.style.color = '#ffcc00';
                 return;
             }
 
+            // 显示加载状态
+            getNumberBtn.disabled = true;
+            getNumberBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 分配中...';
+
+            // 分配号码
+            assignNumberToDevice();
+        });
+
+        // 分配号码给当前设备
+        function assignNumberToDevice() {
             // 找出第一个未分配的号码
-            for (const num of numbers) {
+            for (const num of sharedNumbers) {
                 if (!assignedNumbers.has(num)) {
                     userNumber = num;
-                    assignedNumbers.add(num);
+                    assignedNumbers.set(num, deviceId);
 
                     // 保存数据
-                    saveData();
-
-                    // 保存用户号码
-                    const userData = {
-                        number: userNumber,
-                        timestamp: new Date().toISOString(),
-                        deviceId: generateDeviceId()
-                    };
-                    localStorage.setItem(USER_ID_KEY, JSON.stringify(userData));
-
-                    // 添加到历史记录
-                    addToHistory(userNumber);
+                    saveLocalData();
 
                     // 显示号码
                     showAssignedNumber();
+
+                    // 更新显示
                     updateCounts();
-                    showNotification(`恭喜！您获得了幸运号码 ${userNumber}`);
+                    renderNumbersGrid();
+
+                    // 更新按钮状态
+                    getNumberBtn.innerHTML = '<i class="fas fa-check-circle"></i> 已领取';
+
+                    // 显示成功消息
+                    showSyncStatus(`成功分配到号码 ${userNumber}`, 'success');
                     return;
                 }
             }
 
             // 没有找到可用号码
-            showNoNumbersAvailable();
-        }
-
-        // 添加到历史记录
-        function addToHistory(number) {
-            const historyItem = {
-                number: number,
-                time: new Date().toLocaleTimeString('zh-CN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                })
-            };
-
-            // 添加到历史记录开头
-            history.unshift(historyItem);
-
-            // 只保留最近的MAX_HISTORY条记录
-            if (history.length > MAX_HISTORY) {
-                history = history.slice(0, MAX_HISTORY);
-            }
-
-            // 保存历史记录
-            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-
-            // 更新显示
-            updateHistoryDisplay();
-        }
-
-        // 更新历史记录显示
-        function updateHistoryDisplay() {
-            historyListEl.innerHTML = '';
-
-            if (history.length === 0) {
-                historyListEl.innerHTML = '<div class="history-item">暂无分配记录</div>';
-                return;
-            }
-
-            history.forEach(item => {
-                const historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.textContent = `${item.number}号 (${item.time})`;
-                historyListEl.appendChild(historyItem);
-            });
+            statusMessageEl.textContent = '所有号码已分配完毕！';
+            statusMessageEl.style.color = '#ffcc00';
+            getNumberBtn.disabled = false;
+            getNumberBtn.innerHTML = '<i class="fas fa-random"></i> 获取号码';
         }
 
         // 显示分配的号码
         function showAssignedNumber() {
-            // 隐藏加载状态，显示结果
             loadingSection.style.display = 'none';
             resultSection.style.display = 'block';
 
@@ -638,16 +625,8 @@
                     userNumberEl.textContent = userNumber;
 
                     // 显示状态消息
-                    const saved = localStorage.getItem(USER_ID_KEY);
-                    if (saved) {
-                        const data = JSON.parse(saved);
-                        const date = new Date(data.timestamp);
-                        const timeStr = date.toLocaleTimeString('zh-CN', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-                        statusMessageEl.textContent = `恭喜！您的幸运号码 • 领取时间：${timeStr}`;
-                    }
+                    statusMessageEl.textContent = `这是您的专属号码（设备ID: ${deviceId.substr(0, 8)}...）`;
+                    statusMessageEl.style.color = 'white';
 
                     // 更新"我的号码"显示
                     myNumberEl.textContent = userNumber;
@@ -656,19 +635,76 @@
             }, 30);
         }
 
-        // 显示没有可用号码
-        function showNoNumbersAvailable() {
-            loadingSection.style.display = 'none';
-            resultSection.style.display = 'block';
-            resultSection.style.background = 'linear-gradient(135deg, #999 0%, #666 100%)';
+        // 同步共享池（模拟多设备同步）
+        function syncWithSharedPool() {
+            if (isSyncing) return;
 
-            userNumberEl.textContent = '满额';
-            userNumberEl.style.fontSize = '5rem';
-            statusMessageEl.textContent = '所有74个号码已分配完毕！';
-            statusMessageEl.style.color = '#ffcc00';
+            isSyncing = true;
+            syncStatusEl.classList.add('syncing');
+            syncStatusEl.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 同步共享抽奖池中...';
 
-            myNumberEl.textContent = '无';
+            // 模拟网络延迟
+            setTimeout(() => {
+                // 这里可以添加真实的服务器同步逻辑
+                // 现在只是模拟同步
+
+                // 更新显示
+                updateCounts();
+                renderNumbersGrid();
+
+                // 更新同步状态
+                syncStatusEl.classList.remove('syncing');
+                const assignedCount = assignedNumbers.size;
+                syncStatusEl.innerHTML = `<i class="fas fa-check-circle"></i> 已同步：${assignedCount}/${TOTAL_NUMBERS} 个号码已分配`;
+
+                isSyncing = false;
+            }, 1000);
         }
+
+        // 刷新按钮点击事件
+        refreshBtn.addEventListener('click', function () {
+            loadLocalData();
+            updateCounts();
+            renderNumbersGrid();
+            showSyncStatus('状态已刷新', 'info');
+        });
+
+        // 重置按钮点击事件
+        resetBtn.addEventListener('click', function () {
+            const password = prompt('请输入管理员密码（默认密码：admin888）：');
+
+            if (password === 'admin888') {
+                if (confirm('确定要重置整个共享抽奖池吗？所有设备的号码分配都将被清除！')) {
+                    // 重置数据
+                    sharedNumbers = generateNumbers();
+                    assignedNumbers = new Map();
+                    userNumber = null;
+
+                    // 保存数据
+                    saveLocalData();
+
+                    // 重置显示
+                    loadingSection.style.display = 'none';
+                    resultSection.style.display = 'block';
+                    userNumberEl.textContent = '?';
+                    statusMessageEl.textContent = '抽奖池已重置！点击"获取号码"领取新号码';
+                    statusMessageEl.style.color = 'white';
+                    myNumberEl.textContent = '等待分配';
+
+                    // 重置按钮状态
+                    getNumberBtn.disabled = false;
+                    getNumberBtn.innerHTML = '<i class="fas fa-random"></i> 获取号码';
+
+                    // 更新显示
+                    updateCounts();
+                    renderNumbersGrid();
+
+                    showSyncStatus('抽奖池已重置，所有号码已清空', 'success');
+                }
+            } else if (password !== null) {
+                alert('密码错误！');
+            }
+        });
 
         // 更新计数显示
         function updateCounts() {
@@ -677,86 +713,56 @@
             remainingCountEl.textContent = TOTAL_NUMBERS - assignedNumbers.size;
         }
 
-        // 生成设备ID
-        function generateDeviceId() {
-            return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        // 渲染号码网格
+        function renderNumbersGrid() {
+            numbersGridEl.innerHTML = '';
+
+            for (let i = 1; i <= TOTAL_NUMBERS; i++) {
+                const numberItem = document.createElement('div');
+                numberItem.className = 'number-item';
+
+                if (assignedNumbers.has(i)) {
+                    numberItem.classList.add('assigned');
+                    // 如果是当前设备的号码，特殊标记
+                    if (assignedNumbers.get(i) === deviceId) {
+                        numberItem.style.boxShadow = '0 0 0 2px #4CAF50';
+                    }
+                } else {
+                    numberItem.classList.add('available');
+                }
+
+                numberItem.textContent = i;
+                numbersGridEl.appendChild(numberItem);
+            }
+        }
+
+        // 显示同步状态
+        function showSyncStatus(message, type = 'info') {
+            const tempStatus = document.createElement('div');
+            tempStatus.className = `sync-status ${type === 'error' ? 'error' : ''}`;
+            tempStatus.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
+            tempStatus.style.position = 'fixed';
+            tempStatus.style.top = '20px';
+            tempStatus.style.right = '20px';
+            tempStatus.style.zIndex = '1000';
+
+            document.body.appendChild(tempStatus);
+
+            setTimeout(() => {
+                tempStatus.remove();
+            }, 3000);
         }
 
         // 设置事件监听器
         function setupEventListeners() {
-            // 刷新按钮
-            refreshBtn.addEventListener('click', function () {
-                loadData();
-                updateCounts();
-                updateHistoryDisplay();
-                showNotification('状态已刷新！');
-            });
-
-            // 截图按钮
-            screenshotBtn.addEventListener('click', function () {
-                // 使用html2canvas库进行截图
-                if (userNumber) {
-                    // 创建临时提示
-                    const tempMsg = statusMessageEl.textContent;
-                    statusMessageEl.textContent = '截图保存中...';
-
-                    // 模拟截图过程
-                    setTimeout(() => {
-                        statusMessageEl.textContent = tempMsg;
-                        showNotification('截图已保存到相册（模拟）');
-                    }, 1000);
-                } else {
-                    showNotification('请先获取号码再截图');
-                }
-            });
-
-            // 重置按钮
-            resetBtn.addEventListener('click', function () {
-                // 密码保护
-                const password = prompt('请输入管理员密码（默认密码：8888）：');
-
-                if (password === '8888') {
-                    if (confirm('确定要重置所有号码吗？这将清除所有人的分配记录！')) {
-                        // 清除所有数据
-                        localStorage.removeItem(STORAGE_KEY);
-                        localStorage.removeItem(USER_ID_KEY);
-                        localStorage.removeItem(HISTORY_KEY);
-
-                        // 重置状态
-                        numbers = generateNumbers();
-                        assignedNumbers = new Set();
-                        userNumber = null;
-                        history = [];
-
-                        // 保存数据
-                        saveData();
-
-                        // 重新加载页面
-                        location.reload();
-                    }
-                } else if (password !== null) {
-                    alert('密码错误！');
-                }
-            });
-
-            // 页面可见性变化时重新检查
+            // 页面可见性变化时同步
             document.addEventListener('visibilitychange', function () {
                 if (!document.hidden) {
-                    loadData();
+                    loadLocalData();
                     updateCounts();
-                    updateHistoryDisplay();
+                    renderNumbersGrid();
                 }
             });
-        }
-
-        // 显示通知
-        function showNotification(message) {
-            notificationEl.textContent = message;
-            notificationEl.style.display = 'block';
-
-            setTimeout(() => {
-                notificationEl.style.display = 'none';
-            }, 3000);
         }
     </script>
 </body>
