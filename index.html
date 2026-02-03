@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多设备共享抽奖池</title>
+    <title>幸运扭蛋机 随机抽号游戏</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -15,222 +15,118 @@
         }
 
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #333;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: 25px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            max-width: 1200px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            padding: 40px 30px;
+            padding: 30px;
+        }
+
+        header {
             text-align: center;
-        }
-
-        .logo {
-            margin-bottom: 25px;
-        }
-
-        .logo i {
-            font-size: 5rem;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
         }
 
         h1 {
-            color: #333;
-            font-size: 2rem;
+            color: #ff6b8b;
+            font-size: 2.8rem;
             margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .subtitle {
-            color: #666;
-            font-size: 1rem;
+            color: #6c757d;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .left-panel,
+        .right-panel {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .setup-panel {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-bottom: 30px;
         }
 
-        .number-display {
-            margin: 30px 0;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.3);
-        }
-
-        .number-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        #user-number {
-            font-size: 7rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-            line-height: 1;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .loading {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-text {
-            font-size: 1.2rem;
-            color: white;
-            font-weight: 600;
-            margin-top: 15px;
-        }
-
-        .status-message {
-            font-size: 1.2rem;
-            color: white;
-            margin-top: 15px;
-            font-weight: 600;
-            min-height: 30px;
-        }
-
-        .info-panel {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 25px;
-            text-align: left;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .info-label {
-            color: #666;
-            font-weight: 600;
-        }
-
-        .info-value {
-            color: #333;
-            font-weight: 700;
-        }
-
-        .device-info {
-            background: #e8f4fd;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            border-left: 4px solid #4facfe;
-        }
-
-        .device-info h3 {
-            color: #333;
-            margin-bottom: 10px;
+        h2 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        h2 i {
+            color: #6a11cb;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
             font-size: 1.1rem;
         }
 
-        .device-id {
-            font-family: monospace;
-            background: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            word-break: break-all;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 8px;
-            max-height: 250px;
-            overflow-y: auto;
-            padding: 15px;
-            background: white;
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #dee2e6;
             border-radius: 12px;
-            margin-top: 20px;
-            border: 2px solid #eee;
-        }
-
-        .number-item {
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
         }
 
-        .number-item.available {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
+        input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
         }
 
-        .number-item.assigned {
-            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
-            color: white;
-            transform: scale(0.9);
-            opacity: 0.8;
-        }
-
-        .controls {
+        .button-group {
             display: flex;
             gap: 15px;
-            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         button {
-            flex: 1;
-            padding: 16px;
+            padding: 16px 28px;
             border: none;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -238,6 +134,8 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            flex: 1;
+            min-width: 150px;
         }
 
         .btn-primary {
@@ -245,87 +143,229 @@
             color: white;
         }
 
-        .btn-primary:hover:not(:disabled) {
+        .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
         }
 
-        .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
         .btn-secondary {
-            background: #e9ecef;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
             color: #333;
         }
 
         .btn-secondary:hover {
-            background: #dee2e6;
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 154, 158, 0.3);
         }
 
-        .admin-btn {
+        .btn-reset {
             background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
             color: white;
-            width: 100%;
-            margin-top: 20px;
         }
 
-        .admin-btn:hover {
+        .btn-reset:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255, 107, 139, 0.3);
         }
 
-        .sync-status {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            color: #856404;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-size: 0.9rem;
+        .gacha-machine {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .gacha-machine::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 10%;
+            right: 10%;
+            height: 20px;
+            background: linear-gradient(135deg, #f1c40f 0%, #e67e22 100%);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .gacha-display {
+            background-color: #0c2461;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 8px solid #1e3799;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gacha-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(135deg, #f1c40f 0%, #e67e22 100%);
+        }
+
+        .number-display {
+            font-size: 6rem;
+            font-weight: 800;
+            color: #f1c40f;
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.7);
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: all 0.5s ease;
         }
 
-        .sync-status.syncing {
-            background: #d1ecf1;
-            border-color: #bee5eb;
-            color: #0c5460;
+        .number-display.rolling {
+            animation: rollNumber 0.8s ease-in-out infinite;
         }
 
-        .sync-status.error {
-            background: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+        @keyframes rollNumber {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .remaining-panel {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .remaining-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .number-item {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .number-item.used {
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e53 100%);
+            transform: scale(0.9);
+            opacity: 0.7;
+        }
+
+        .status-panel {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
         }
 
         footer {
-            margin-top: 30px;
-            color: #666;
-            font-size: 0.9rem;
             text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .history-panel {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .history-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .history-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #6a11cb;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .number-display {
+                font-size: 4.5rem;
+                height: 110px;
+            }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 30px 20px;
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .number-display {
+                font-size: 3.5rem;
+                height: 90px;
             }
 
             h1 {
-                font-size: 1.6rem;
-            }
-
-            #user-number {
-                font-size: 5rem;
-                min-height: 100px;
-            }
-
-            .controls {
-                flex-direction: column;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -333,438 +373,56 @@
 
 <body>
     <div class="container">
-        <div class="logo">
-            <i class="fas fa-mobile-alt"></i>
-        </div>
-
-        <h1>多设备共享抽奖池</h1>
-        <p class="subtitle">74个号码，多个设备共享同一个号码池，号码不重复</p>
-
-        <!-- 加载状态 -->
-        <div id="loading-section" style="text-align: center; padding: 30px;">
-            <div class="loading"></div>
-            <div class="loading-text">正在连接共享抽奖池...</div>
-        </div>
-
-        <!-- 号码显示 -->
-        <div id="result-section" class="number-display" style="display: none;">
-            <div id="user-number"></div>
-            <div id="status-message" class="status-message"></div>
-        </div>
-
-        <!-- 同步状态 -->
-        <div id="sync-status" class="sync-status" style="display: none;">
-            <i class="fas fa-sync-alt"></i>
-            <span>已连接到共享抽奖池</span>
-        </div>
-
-        <div class="info-panel">
-            <div class="info-row">
-                <span class="info-label">总号码数：</span>
-                <span class="info-value" id="total-count">74</span>
+        <header>
+            <h1><i class="fas fa-egg"></i> 幸运扭蛋机</h1>
+            <p class="subtitle">设置数字范围，随机抽取不重复的号码，试试你的运气！</p>
+        </header>
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="setup-panel">
+                    <h2><i class="fas fa-cog"></i> 设置抽号范围</h2>
+                    <div class="input-group"> <label for="min-number">最小号码</label> <input type="number" id="min-number"
+                            min="1" max="999" value="1" placeholder="请输入最小号码"> </div>
+                    <div class="input-group"> <label for="max-number">最大号码</label> <input type="number" id="max-number"
+                            min="2" max="1000" value="10" placeholder="请输入最大号码"> </div>
+                    <div class="button-group"> <button id="start-btn" class="btn-primary"> <i
+                                class="fas fa-play-circle"></i> 开始抽号 </button> <button id="reset-btn" class="btn-reset">
+                            <i class="fas fa-redo-alt"></i> 重置游戏 </button> </div>
+                </div>
+                <div class="remaining-panel">
+                    <h2><i class="fas fa-list-ol"></i> 剩余号码列表</h2>
+                    <div id="remaining-numbers" class="remaining-list"> <!-- 这里将通过JavaScript动态生成 -->
+                        <div class="instruction">请先设置范围并点击"开始抽号"</div>
+                    </div>
+                </div>
+                <div class="history-panel">
+                    <div class="history-title"><i class="fas fa-history"></i> 已抽取号码历史</div>
+                    <div id="history-list" class="history-list"> <!-- 这里将通过JavaScript动态生成 -->
+                        <div class="instruction">暂无抽取记录</div>
+                    </div>
+                </div>
             </div>
-            <div class="info-row">
-                <span class="info-label">已分配：</span>
-                <span class="info-value" id="assigned-count">0</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">剩余：</span>
-                <span class="info-value" id="remaining-count">74</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">您的号码：</span>
-                <span class="info-value" id="my-number">等待分配</span>
-            </div>
-        </div>
-
-        <!-- 设备信息 -->
-        <div class="device-info">
-            <h3><i class="fas fa-mobile"></i> 设备信息</h3>
-            <div>设备ID：</div>
-            <div class="device-id" id="device-id">生成中...</div>
-            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                <i class="fas fa-info-circle"></i> 此ID用于识别您的设备，确保公平分配
+            <div class="right-panel">
+                <div class="gacha-machine">
+                    <h2 style="color: white;"><i class="fas fa-dice"></i> 幸运扭蛋机</h2>
+                    <div class="gacha-display">
+                        <div id="number-display" class="number-display">?</div>
+                    </div>
+                    <div class="button-group"> <button id="spin-btn" class="btn-primary" disabled> <i
+                                class="fas fa-random"></i> 旋转扭蛋 </button> <button id="gacha-reset-btn"
+                            class="btn-secondary" disabled> <i class="fas fa-undo-alt"></i> 重新开始 </button> </div>
+                </div>
+                <div class="status-panel">
+                    <div id="status-message">请先设置抽号范围并点击"开始抽号"</div>
+                    <div id="remaining-count" style="margin-top: 10px;"></div>
+                </div>
             </div>
         </div>
-
-        <!-- 号码池状态 -->
-        <div style="margin-top: 25px;">
-            <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                <i class="fas fa-list-ol"></i> 号码池状态 (1-74)
-            </h3>
-            <div id="numbers-grid" class="numbers-grid">
-                <!-- 号码将通过JavaScript动态生成 -->
-            </div>
-        </div>
-
-        <div class="controls">
-            <button id="get-number-btn" class="btn-primary">
-                <i class="fas fa-random"></i> 获取号码
-            </button>
-            <button id="refresh-btn" class="btn-secondary">
-                <i class="fas fa-sync-alt"></i> 刷新状态
-            </button>
-        </div>
-
-        <button id="reset-btn" class="admin-btn">
-            <i class="fas fa-redo-alt"></i> 重置抽奖池（管理员）
-        </button>
-
-        <div class="sync-status" style="margin-top: 20px;">
-            <i class="fas fa-users"></i>
-            <span>多设备共享：所有设备使用同一个号码池</span>
-        </div>
-
         <footer>
-            <p>© 2023 多设备共享抽奖系统 | 74个号码 | 实时同步</p>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                <i class="fas fa-sync-alt"></i> 实时同步确保号码不重复
-            </p>
+            <p>设计：随机抽号游戏 | 每个号码只会被抽取一次</p>
         </footer>
     </div>
-
-    <script>
-        // 配置
-        const TOTAL_NUMBERS = 74;
-        const STORAGE_KEY = 'shared_number_pool_74';
-        const DEVICE_ID_KEY = 'device_unique_id';
-        const SYNC_INTERVAL = 3000; // 3秒同步一次
-
-        // 状态
-        let sharedNumbers = [];
-        let assignedNumbers = new Map(); // 使用Map存储: 号码 -> 设备ID
-        let deviceId = null;
-        let userNumber = null;
-        let isSyncing = false;
-
-        // DOM元素
-        const loadingSection = document.getElementById('loading-section');
-        const resultSection = document.getElementById('result-section');
-        const userNumberEl = document.getElementById('user-number');
-        const statusMessageEl = document.getElementById('status-message');
-        const syncStatusEl = document.getElementById('sync-status');
-        const totalCountEl = document.getElementById('total-count');
-        const assignedCountEl = document.getElementById('assigned-count');
-        const remainingCountEl = document.getElementById('remaining-count');
-        const myNumberEl = document.getElementById('my-number');
-        const deviceIdEl = document.getElementById('device-id');
-        const numbersGridEl = document.getElementById('numbers-grid');
-        const getNumberBtn = document.getElementById('get-number-btn');
-        const refreshBtn = document.getElementById('refresh-btn');
-        const resetBtn = document.getElementById('reset-btn');
-
-        // 页面加载完成后初始化
-        window.addEventListener('DOMContentLoaded', function () {
-            initializeDevice();
-            setupEventListeners();
-
-            // 开始定期同步
-            setInterval(syncWithSharedPool, SYNC_INTERVAL);
-        });
-
-        // 初始化设备
-        function initializeDevice() {
-            // 生成或获取设备唯一ID
-            deviceId = localStorage.getItem(DEVICE_ID_KEY);
-            if (!deviceId) {
-                deviceId = generateDeviceId();
-                localStorage.setItem(DEVICE_ID_KEY, deviceId);
-            }
-
-            deviceIdEl.textContent = deviceId;
-
-            // 加载本地数据
-            loadLocalData();
-
-            // 显示同步状态
-            syncStatusEl.style.display = 'flex';
-
-            // 检查是否已有号码
-            checkIfAlreadyAssigned();
-
-            // 显示号码网格
-            renderNumbersGrid();
-        }
-
-        // 生成设备唯一ID
-        function generateDeviceId() {
-            const timestamp = Date.now();
-            const random = Math.random().toString(36).substr(2, 9);
-            const userAgent = navigator.userAgent.substr(0, 30);
-            return `device_${timestamp}_${random}_${userAgent.length}`;
-        }
-
-        // 加载本地数据
-        function loadLocalData() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-
-            if (saved) {
-                const data = JSON.parse(saved);
-                sharedNumbers = data.numbers || generateNumbers();
-                assignedNumbers = new Map(data.assignedNumbers || []);
-            } else {
-                // 首次运行，初始化共享池
-                sharedNumbers = generateNumbers();
-                assignedNumbers = new Map();
-                saveLocalData();
-            }
-
-            updateCounts();
-        }
-
-        // 生成1-74的随机顺序数组
-        function generateNumbers() {
-            const arr = Array.from({ length: TOTAL_NUMBERS }, (_, i) => i + 1);
-
-            // 随机打乱顺序
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-
-            return arr;
-        }
-
-        // 保存本地数据
-        function saveLocalData() {
-            const data = {
-                numbers: sharedNumbers,
-                assignedNumbers: Array.from(assignedNumbers.entries()),
-                lastUpdated: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        }
-
-        // 检查是否已分配号码
-        function checkIfAlreadyAssigned() {
-            // 检查这个设备是否已经有号码
-            for (const [number, assignedDeviceId] of assignedNumbers) {
-                if (assignedDeviceId === deviceId) {
-                    userNumber = number;
-                    showAssignedNumber();
-                    getNumberBtn.disabled = true;
-                    getNumberBtn.innerHTML = '<i class="fas fa-check-circle"></i> 已领取';
-                    return true;
-                }
-            }
-
-            // 没有分配号码
-            loadingSection.style.display = 'none';
-            resultSection.style.display = 'block';
-            userNumberEl.textContent = '?';
-            statusMessageEl.textContent = '点击"获取号码"从共享池中领取';
-            return false;
-        }
-
-        // 获取号码按钮点击事件
-        getNumberBtn.addEventListener('click', function () {
-            if (getNumberBtn.disabled) return;
-
-            // 检查是否已分配完
-            if (assignedNumbers.size >= TOTAL_NUMBERS) {
-                statusMessageEl.textContent = '所有号码已分配完毕！';
-                statusMessageEl.style.color = '#ffcc00';
-                return;
-            }
-
-            // 显示加载状态
-            getNumberBtn.disabled = true;
-            getNumberBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 分配中...';
-
-            // 分配号码
-            assignNumberToDevice();
-        });
-
-        // 分配号码给当前设备
-        function assignNumberToDevice() {
-            // 找出第一个未分配的号码
-            for (const num of sharedNumbers) {
-                if (!assignedNumbers.has(num)) {
-                    userNumber = num;
-                    assignedNumbers.set(num, deviceId);
-
-                    // 保存数据
-                    saveLocalData();
-
-                    // 显示号码
-                    showAssignedNumber();
-
-                    // 更新显示
-                    updateCounts();
-                    renderNumbersGrid();
-
-                    // 更新按钮状态
-                    getNumberBtn.innerHTML = '<i class="fas fa-check-circle"></i> 已领取';
-
-                    // 显示成功消息
-                    showSyncStatus(`成功分配到号码 ${userNumber}`, 'success');
-                    return;
-                }
-            }
-
-            // 没有找到可用号码
-            statusMessageEl.textContent = '所有号码已分配完毕！';
-            statusMessageEl.style.color = '#ffcc00';
-            getNumberBtn.disabled = false;
-            getNumberBtn.innerHTML = '<i class="fas fa-random"></i> 获取号码';
-        }
-
-        // 显示分配的号码
-        function showAssignedNumber() {
-            loadingSection.style.display = 'none';
-            resultSection.style.display = 'block';
-
-            // 动画显示号码
-            let count = 0;
-            const interval = setInterval(() => {
-                if (count <= userNumber) {
-                    userNumberEl.textContent = count;
-                    count++;
-                } else {
-                    clearInterval(interval);
-                    userNumberEl.textContent = userNumber;
-
-                    // 显示状态消息
-                    statusMessageEl.textContent = `这是您的专属号码（设备ID: ${deviceId.substr(0, 8)}...）`;
-                    statusMessageEl.style.color = 'white';
-
-                    // 更新"我的号码"显示
-                    myNumberEl.textContent = userNumber;
-                    myNumberEl.style.color = '#FF6B8B';
-                }
-            }, 30);
-        }
-
-        // 同步共享池（模拟多设备同步）
-        function syncWithSharedPool() {
-            if (isSyncing) return;
-
-            isSyncing = true;
-            syncStatusEl.classList.add('syncing');
-            syncStatusEl.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 同步共享抽奖池中...';
-
-            // 模拟网络延迟
-            setTimeout(() => {
-                // 这里可以添加真实的服务器同步逻辑
-                // 现在只是模拟同步
-
-                // 更新显示
-                updateCounts();
-                renderNumbersGrid();
-
-                // 更新同步状态
-                syncStatusEl.classList.remove('syncing');
-                const assignedCount = assignedNumbers.size;
-                syncStatusEl.innerHTML = `<i class="fas fa-check-circle"></i> 已同步：${assignedCount}/${TOTAL_NUMBERS} 个号码已分配`;
-
-                isSyncing = false;
-            }, 1000);
-        }
-
-        // 刷新按钮点击事件
-        refreshBtn.addEventListener('click', function () {
-            loadLocalData();
-            updateCounts();
-            renderNumbersGrid();
-            showSyncStatus('状态已刷新', 'info');
-        });
-
-        // 重置按钮点击事件
-        resetBtn.addEventListener('click', function () {
-            const password = prompt('请输入管理员密码（默认密码：admin888）：');
-
-            if (password === '123456789') {
-                if (confirm('确定要重置整个共享抽奖池吗？所有设备的号码分配都将被清除！')) {
-                    // 重置数据
-                    sharedNumbers = generateNumbers();
-                    assignedNumbers = new Map();
-                    userNumber = null;
-
-                    // 保存数据
-                    saveLocalData();
-
-                    // 重置显示
-                    loadingSection.style.display = 'none';
-                    resultSection.style.display = 'block';
-                    userNumberEl.textContent = '?';
-                    statusMessageEl.textContent = '抽奖池已重置！点击"获取号码"领取新号码';
-                    statusMessageEl.style.color = 'white';
-                    myNumberEl.textContent = '等待分配';
-
-                    // 重置按钮状态
-                    getNumberBtn.disabled = false;
-                    getNumberBtn.innerHTML = '<i class="fas fa-random"></i> 获取号码';
-
-                    // 更新显示
-                    updateCounts();
-                    renderNumbersGrid();
-
-                    showSyncStatus('抽奖池已重置，所有号码已清空', 'success');
-                }
-            } else if (password !== null) {
-                alert('密码错误！');
-            }
-        });
-
-        // 更新计数显示
-        function updateCounts() {
-            totalCountEl.textContent = TOTAL_NUMBERS;
-            assignedCountEl.textContent = assignedNumbers.size;
-            remainingCountEl.textContent = TOTAL_NUMBERS - assignedNumbers.size;
-        }
-
-        // 渲染号码网格
-        function renderNumbersGrid() {
-            numbersGridEl.innerHTML = '';
-
-            for (let i = 1; i <= TOTAL_NUMBERS; i++) {
-                const numberItem = document.createElement('div');
-                numberItem.className = 'number-item';
-
-                if (assignedNumbers.has(i)) {
-                    numberItem.classList.add('assigned');
-                    // 如果是当前设备的号码，特殊标记
-                    if (assignedNumbers.get(i) === deviceId) {
-                        numberItem.style.boxShadow = '0 0 0 2px #4CAF50';
-                    }
-                } else {
-                    numberItem.classList.add('available');
-                }
-
-                numberItem.textContent = i;
-                numbersGridEl.appendChild(numberItem);
-            }
-        }
-
-        // 显示同步状态
-        function showSyncStatus(message, type = 'info') {
-            const tempStatus = document.createElement('div');
-            tempStatus.className = `sync-status ${type === 'error' ? 'error' : ''}`;
-            tempStatus.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}`;
-            tempStatus.style.position = 'fixed';
-            tempStatus.style.top = '20px';
-            tempStatus.style.right = '20px';
-            tempStatus.style.zIndex = '1000';
-
-            document.body.appendChild(tempStatus);
-
-            setTimeout(() => {
-                tempStatus.remove();
-            }, 3000);
-        }
-
-        // 设置事件监听器
-        function setupEventListeners() {
-            // 页面可见性变化时同步
-            document.addEventListener('visibilitychange', function () {
-                if (!document.hidden) {
-                    loadLocalData();
-                    updateCounts();
-                    renderNumbersGrid();
-                }
-            });
-        }
-    </script>
+    <script> // 全局变量 let minNumber = 1; let maxNumber = 10; let availableNumbers = []; let usedNumbers = []; let gameActive = false; let isRolling = false; // DOM 元素 const minInput = document.getElementById('min-number'); const maxInput = document.getElementById('max-number'); const startBtn = document.getElementById('start-btn'); const resetBtn = document.getElementById('reset-btn'); const spinBtn = document.getElementById('spin-btn'); const gachaResetBtn = document.getElementById('gacha-reset-btn'); const numberDisplay = document.getElementById('number-display'); const remainingNumbersDiv = document.getElementById('remaining-numbers'); const historyListDiv = document.getElementById('history-list'); const statusMessage = document.getElementById('status-message'); const remainingCount = document.getElementById('remaining-count'); // 初始化事件监听器 minInput.addEventListener('change', validateInputs); maxInput.addEventListener('change', validateInputs); startBtn.addEventListener('click', startGame); resetBtn.addEventListener('click', resetGame); spinBtn.addEventListener('click', spinGacha); gachaResetBtn.addEventListener('click', resetGacha); // 验证输入范围 function validateInputs() { let min = parseInt(minInput.value); let max = parseInt(maxInput.value); // 确保最小值不超过最大值 if (min >= max) { maxInput.value = min + 1; max = min + 1; } // 确保最小值至少为1 if (min < 1) { minInput.value = 1; min = 1; } // 确保最大值不超过1000 if (max > 1000) { maxInput.value = 1000; max = 1000; } } // 开始游戏 function startGame() { minNumber = parseInt(minInput.value); maxNumber = parseInt(maxInput.value); // 验证范围 if (minNumber >= maxNumber) { alert("最小号码必须小于最大号码！"); return; } if (maxNumber - minNumber + 1 < 1) { alert("号码范围至少为1个号码！"); return; } // 初始化可用号码数组 availableNumbers = []; for (let i = minNumber; i <= maxNumber; i++) { availableNumbers.push(i); } usedNumbers = []; // 更新显示 updateRemainingNumbersDisplay(); updateHistoryDisplay(); updateStatus(); // 启用按钮 spinBtn.disabled = false; gachaResetBtn.disabled = false; // 设置游戏状态 gameActive = true; // 清空显示 numberDisplay.textContent = "?"; numberDisplay.classList.remove("rolling"); // 更新状态消息 statusMessage.textContent = 游戏已开始！号码范围：${minNumber} - ${maxNumber}。点击"旋转扭蛋"开始抽号！; } // 旋转扭蛋机 function spinGacha() { if (!gameActive || availableNumbers.length === 0) { statusMessage.textContent = "没有可用的号码了，请重置游戏重新开始！"; return; } if (isRolling) return; // 开始滚动动画 isRolling = true; numberDisplay.classList.add("rolling"); // 随机选择数字 const randomIndex = Math.floor(Math.random() * availableNumbers.length); const selectedNumber = availableNumbers[randomIndex]; // 模拟滚动时间 setTimeout(() => { // 从可用号码中移除 availableNumbers.splice(randomIndex, 1); // 添加到已用号码 usedNumbers.push(selectedNumber); // 更新显示 numberDisplay.textContent = selectedNumber; numberDisplay.classList.remove("rolling"); // 更新列表 updateRemainingNumbersDisplay(); updateHistoryDisplay(); updateStatus(); // 检查游戏是否结束 if (availableNumbers.length === 0) { statusMessage.textContent = "恭喜！所有号码已抽取完毕！"; spinBtn.disabled = true; } else { statusMessage.textContent = 恭喜！你抽中了号码 ${selectedNumber}！; } isRolling = false; }, 1500); } // 重置扭蛋机 function resetGacha() { if (!gameActive) return; // 重新初始化游戏 startGame(); // 更新状态 statusMessage.textContent = 游戏已重置！号码范围：${minNumber} - ${maxNumber}。点击"旋转扭蛋"开始抽号！; } // 重置整个游戏 function resetGame() { // 重置输入 minInput.value = 1; maxInput.value = 10; // 重置显示 numberDisplay.textContent = "?"; numberDisplay.classList.remove("rolling"); // 清空列表 remainingNumbersDiv.innerHTML = '<div class="instruction">请先设置范围并点击"开始抽号"</div>'; historyListDiv.innerHTML = '<div class="instruction">暂无抽取记录</div>'; // 禁用按钮 spinBtn.disabled = true; gachaResetBtn.disabled = true; // 重置状态 gameActive = false; isRolling = false; // 更新状态消息 statusMessage.textContent = "请先设置抽号范围并点击'开始抽号'"; remainingCount.textContent = ""; } // 更新剩余号码显示 function updateRemainingNumbersDisplay() { if (!gameActive || availableNumbers.length === 0) { remainingNumbersDiv.innerHTML = '<div class="instruction">没有剩余号码</div>'; return; } let html = ''; availableNumbers.forEach(number => { html += <div class="number-item">${number}</div>; }); remainingNumbersDiv.innerHTML = html; } // 更新历史记录显示 function updateHistoryDisplay() { if (usedNumbers.length === 0) { historyListDiv.innerHTML = '<div class="instruction">暂无抽取记录</div>'; return; } let html = ''; // 显示最新的5个历史记录，从新到旧 const recentHistory = [...usedNumbers].reverse().slice(0, 5); recentHistory.forEach(number => { html += <div class="history-item">${number}</div>; }); // 如果历史记录超过5个，显示提示 if (usedNumbers.length > 5) { html += <div class="history-item">+${usedNumbers.length - 5}更多</div>; } historyListDiv.innerHTML = html; } // 更新状态信息 function updateStatus() { if (!gameActive) return; const totalNumbers = maxNumber - minNumber + 1; const usedCount = usedNumbers.length; const remainingCountValue = totalNumbers - usedCount; remainingCount.textContent = 剩余号码：${remainingCountValue}/${totalNumbers}; } // 初始化 function init() { validateInputs(); } // 页面加载完成后初始化 window.addEventListener('DOMContentLoaded', init); </script>
 </body>
 
 </html>
